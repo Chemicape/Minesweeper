@@ -78,9 +78,12 @@ class GameFragment : Fragment() {
         val result = board.processor(x,y)
         if(result==-1){
             button.setImageResource(R.drawable.bomb)
-            boom()
+            gameOver(false)
         }else{
             button.setImageResource(getDrawable(result))
+            if(board.win()){
+                gameOver(true)
+            }
         }
     }
     fun getDrawable(num:Int):Int{
@@ -105,11 +108,12 @@ class GameFragment : Fragment() {
         }
         return 0
     }
-    fun boom(){
-
-    }
-    fun gameOver(){
-
+    fun gameOver(win: Boolean){
+        if(win){
+            textView.text = "Win!"
+        }else{
+            textView.text="Lose..."
+        }
     }
     fun scan(){
 
