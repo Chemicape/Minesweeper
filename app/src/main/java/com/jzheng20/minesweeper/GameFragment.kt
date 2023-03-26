@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.GridLayout
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -30,21 +27,19 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
-        val difficulty = arguments?.getInt("Difficulty")
+        val difficulty = arguments?.getInt("Difficulty") as Int
         back = view.findViewById(R.id.game_back)
         back.isVisible = false
         back.isEnabled = false
         textView = view.findViewById(R.id.difficulty)
-        if(difficulty==0){
-            textView.text = "Easy"
-            board = MineSweeperModel(10)
-        }else if(difficulty==1){
-            textView.text = "Normal"
-            board = MineSweeperModel(15)
-        }else if(difficulty==2){
-            textView.text = "Hard"
-            board = MineSweeperModel(20)
+        when (difficulty){
+            0 -> textView.text = "Very easy"
+            1 -> textView.text = "Easy"
+            2 -> textView.text = "Normal"
+            3 -> textView.text = "Hard"
+            4 -> textView.text = "Extreme"
         }
+        board = MineSweeperModel(3*(difficulty+2))
         back.setOnClickListener {
             view.findNavController().navigate(R.id.action_gameFragment_to_welcomeFragment)
         }
@@ -58,17 +53,18 @@ class GameFragment : Fragment() {
                 ).apply {
                     width = 110
                     height = 110
-                    setMargins(0, 0, 0, 0)
                 }
+                imageButton.scaleType = ImageView.ScaleType.CENTER
                 imageButton.setOnClickListener {
                     val row = i
                     val column = j
                     processor(board,row,column,imageButton,back)
                 }
-//                imageButton.setOnLongClickListener {
-//                    imageButton.setImageResource(R.drawable.flagged)
-//                    true
-//                }
+                imageButton.setOnLongClickListener {
+//                    if()
+                    imageButton.setImageResource(R.drawable.flagged)
+                    true
+                }
                 gridLayout.addView(imageButton, i * gridLayout.columnCount + j)
             }
         }
@@ -79,7 +75,19 @@ class GameFragment : Fragment() {
         if(result==-1){
             button.setImageResource(R.drawable.bomb)
             gameOver(false)
-        }else{
+        }else if(result==0){
+            for (i in 0 until gridLayout.rowCount) {
+                for (j in 0 until gridLayout.columnCount) {
+                    if(board.isRevealed(i,j)){
+                        val button = gridLayout.getChildAt(i*10+j) as ImageButton
+                        button.setImageResource(getDrawable(board.processor(i,j)))
+                    }
+                }
+            }
+            if(board.win()){
+                gameOver(true)
+            }
+        } else{
             button.setImageResource(getDrawable(result))
             if(board.win()){
                 gameOver(true)
@@ -109,14 +117,14 @@ class GameFragment : Fragment() {
         return 0
     }
     fun gameOver(win: Boolean){
+        back.isEnabled = true
+        back.isVisible = true
         if(win){
             textView.text = "Win!"
         }else{
             textView.text="Lose..."
-        }
-    }
-    fun scan(){
 
+        }
     }
 
     companion object {

@@ -9,18 +9,18 @@
     app:cardCornerRadius="24dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/grid"
+        <TextView
+            android:id="@+id/difficulty_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            app:srcCompat="@drawable/covered"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_margin="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#F8F5F5"
+            tools:text="sample text" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

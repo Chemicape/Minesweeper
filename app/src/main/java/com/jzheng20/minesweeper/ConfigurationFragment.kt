@@ -1,18 +1,25 @@
 package com.jzheng20.minesweeper
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class ConfigurationFragment : Fragment() {
-    private lateinit var easyButton: Button
-    private lateinit var normalButton: Button
-    private lateinit var hardButton: Button
+    private lateinit var recycler: RecyclerView
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,30 +31,63 @@ class ConfigurationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_configuration, container, false)
-        easyButton = view.findViewById(R.id.easy)
-        normalButton =view.findViewById(R.id.normal)
-        hardButton = view.findViewById(R.id.hard)
-        easyButton.setOnClickListener {
-            val bundle = Bundle()
-            val navController = findNavController()
-            view.findNavController().navigate(R.id.action_configurationFragment_to_gameFragment,bundle.apply {
-                bundle.putInt("Difficulty",0)
-            })
-        }
-        normalButton.setOnClickListener {
-            val bundle = Bundle()
-            val navController = findNavController()
-            view.findNavController().navigate(R.id.action_configurationFragment_to_gameFragment,bundle.apply {
-                bundle.putInt("Difficulty",1)
-            })
-        }
-        hardButton.setOnClickListener {
-            val bundle = Bundle()
-            val navController = findNavController()
-            view.findNavController().navigate(R.id.action_configurationFragment_to_gameFragment,bundle.apply {
-                bundle.putInt("Difficulty",2)
-            })
-        }
+        prefs = PreferenceManager.getDefaultSharedPreferences(view.context)
+
+        recycler = view.findViewById(R.id.recycler_view)
+        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.smoothScrollToPosition(prefs.getInt(POSITION, 0))
         return view
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+            recycler.adapter = RedneckAdapter()
+
+    }
+    private inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
+        private var difficulty: Int = 0
+        private val wordTextView: TextView = itemView.findViewById(R.id.difficulty_textView)
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val bundle = Bundle()
+            val navController = findNavController()
+            navController.navigate(R.id.action_configurationFragment_to_gameFragment,bundle.apply {
+                bundle.putInt("Difficulty",difficulty)
+            })
+            prefs.edit().putInt(POSITION, adapterPosition).apply()
+        }
+
+        fun bind(difficulty:Int) {
+            this.difficulty = difficulty
+            when(difficulty){
+                0 -> wordTextView.text = "Very easy"
+                1 -> wordTextView.text = "Easy"
+                2 -> wordTextView.text = "Normal"
+                3 -> wordTextView.text = "Hard"
+                4 -> wordTextView.text = "Extreme"
+            }
+
+        }
+    }
+
+    private inner class RedneckAdapter() :
+        RecyclerView.Adapter<MyViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            val view = layoutInflater.inflate(R.layout.recycler_item, parent, false)
+            return MyViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            holder.bind(position)
+        }
+
+        override fun getItemCount() = 5
+    }
+    companion object {
+        fun newInstance() = WelcomeFragment()
+        const val POSITION = "adapter_position"
     }
 }
