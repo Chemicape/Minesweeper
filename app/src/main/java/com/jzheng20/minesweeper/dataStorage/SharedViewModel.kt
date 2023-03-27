@@ -49,7 +49,6 @@ class SharedViewModel : ViewModel() {
             1 -> _text.value = "#7030A0"
             2 -> _text.value = "#0900C4"
         }
-
     }
 
     fun setWins(wins: Int) {
