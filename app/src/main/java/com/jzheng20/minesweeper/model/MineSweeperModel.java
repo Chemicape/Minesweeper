@@ -23,7 +23,7 @@ public class MineSweeperModel {
     public boolean isRevealed(int x, int y) {
         return board[x][y].isRevealed;
     }
-
+    public boolean isBomb(int x,int y){return board[x][y].isBomb;}
     public int processor(int x, int y) {
         switch (board[x][y].bombsAround) {
             case 0: {
@@ -52,59 +52,65 @@ public class MineSweeperModel {
     }
 
     public void revealAround(int x, int y) {
+        if(isRevealed(x,y)){return;}
         board[x][y].isRevealed = true;
-        int bombs = 0;
         if ((x - 1) >= 0) {
-            board[x - 1][y].isRevealed = true;
-            if (board[x-1][y].isRevealed==false&&board[x - 1][y].bombsAround == 0) {
+            if (board[x - 1][y].bombsAround == 0) {
                 revealAround(x - 1, y);
+            }else {
+                board[x-1][y].isRevealed = true;
             }
         }
         if ((y - 1) >= 0) {
-            board[x][y - 1].isRevealed = true;
-            if (board[x][y-1].isRevealed==false&&board[x][y - 1].bombsAround == 0) {
+            if (board[x][y - 1].bombsAround == 0) {
                 revealAround(x, y - 1);
+            }else {
+                board[x][y-1].isRevealed = true;
             }
         }
         if ((x + 1) <= 9) {
-            board[x + 1][y].isRevealed = true;
-            if (board[x+1][y].isRevealed==false&&board[x + 1][y].bombsAround == 0) {
+            if (board[x + 1][y].bombsAround == 0) {
                 revealAround(x + 1, y);
+            }else {
+                board[x+1][y].isRevealed = true;
             }
         }
         if ((y + 1) <= 9) {
-            board[x][y + 1].isRevealed = true;
-            if (board[x][y+1].isRevealed==false&&board[x][y + 1].bombsAround == 0) {
+            if (board[x][y + 1].bombsAround == 0) {
                 revealAround(x, y + 1);
+            }else {
+                board[x][y+1].isRevealed = true;
             }
         }
         if ((x - 1) >= 0 && (y - 1) >= 0) {
-            board[x - 1][y - 1].isRevealed = true;
-            if (board[x-1][y-1].isRevealed==false&&board[x - 1][y - 1].bombsAround == 0) {
+            if (board[x - 1][y - 1].bombsAround == 0) {
                 revealAround(x - 1, y - 1);
+            }else {
+                board[x-1][y-1].isRevealed = true;
             }
         }
         if ((x - 1) >= 0 && (y + 1) <= 9) {
-            board[x - 1][y + 1].isRevealed = true;
-            if (board[x-1][y+1].isRevealed==false&&board[x - 1][y + 1].bombsAround == 0) {
+            if (board[x - 1][y + 1].bombsAround == 0) {
                 revealAround(x - 1, y + 1);
+            }else {
+                board[x-1][y+1].isRevealed = true;
             }
         }
         if ((x + 1) <= 9 && (y - 1) >= 0) {
-            board[x + 1][y-1].isRevealed = true;
-            if (board[x+1][y-1].isRevealed==false&&board[x + 1][y - 1].bombsAround == 0) {
+            if (board[x + 1][y - 1].bombsAround == 0) {
                 revealAround(x + 1, y - 1);
+            }else {
+                board[x+1][y-1].isRevealed = true;
             }
         }
         if ((x + 1) <= 9 && (y + 1) <= 9) {
-            board[x + 1][y+1].isRevealed = true;
-            if (board[x+1][y+1].isRevealed==false&&board[x + 1][y + 1].bombsAround == 0) {
+            if (board[x + 1][y + 1].bombsAround == 0) {
                 revealAround(x + 1, y + 1);
+            }else {
+                board[x+1][y+1].isRevealed = true;
             }
         }
-        if (!board[x][y].isBomb) {
-            board[x][y].updateBombsAround(bombs);
-        }
+
     }
 
     public void countBombsAround(int x, int y) {

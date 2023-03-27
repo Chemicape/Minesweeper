@@ -1,6 +1,7 @@
 package com.jzheng20.minesweeper
 
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,15 +12,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jzheng20.minesweeper.dataStorage.SharedViewModel
 
 class ConfigurationFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var prefs: SharedPreferences
+    val viewModel : SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,7 @@ class ConfigurationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_configuration, container, false)
+        view.setBackgroundColor(Color.parseColor(viewModel.theme.value))
         prefs = PreferenceManager.getDefaultSharedPreferences(view.context)
 
         recycler = view.findViewById(R.id.recycler_view)
@@ -40,7 +45,7 @@ class ConfigurationFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            recycler.adapter = RedneckAdapter()
+            recycler.adapter = Adapter()
 
     }
     private inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view),
@@ -63,17 +68,17 @@ class ConfigurationFragment : Fragment() {
         fun bind(difficulty:Int) {
             this.difficulty = difficulty
             when(difficulty){
-                0 -> wordTextView.text = "Very easy"
-                1 -> wordTextView.text = "Easy"
-                2 -> wordTextView.text = "Normal"
-                3 -> wordTextView.text = "Hard"
-                4 -> wordTextView.text = "Extreme"
+                0 -> wordTextView.text = resources.getString(R.string.veryeasy)
+                1 -> wordTextView.text = resources.getString(R.string.easy)
+                2 -> wordTextView.text = resources.getString(R.string.normal)
+                3 -> wordTextView.text = resources.getString(R.string.hard)
+                4 -> wordTextView.text = resources.getString(R.string.extreme)
             }
 
         }
     }
 
-    private inner class RedneckAdapter() :
+    private inner class Adapter() :
         RecyclerView.Adapter<MyViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
             val view = layoutInflater.inflate(R.layout.recycler_item, parent, false)

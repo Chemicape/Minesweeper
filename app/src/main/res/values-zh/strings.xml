@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">扫雷</string>
+    <string name="newgame">新游戏</string>
+    <string name="setting">设置</string>
+    <string name="scoreboard">计分板</string>
+    <string name="veryeasy">非常简单</string>
+    <string name="easy">简单</string>
+    <string name="normal">普通</string>
+    <string name="hard">困难</string>
+    <string name="extreme">噩梦</string>
+    <string name="score">分数</string>
+    <string name="enteryourname">输入你的名字</string>
+    <string name="white">白色</string>
+    <string name="lime">淡青色</string>
+    <string name="lightblue">淡蓝色</string>
+    <string name="lightyellow">淡黄色</string>
+    <string name="back">返回</string>
+    <string name="theme">主题</string>
+    <string name="totalgames">总游戏数:</string>
+    <string name="totalwins">胜局:</string>
+    <string name="totalloses">败局:</string>
+    <string name="scorehistory">分数历史:</string>
+    <string name="win">胜</string>
+    <string name="lose">败</string>
+</resources>
