@@ -11,6 +11,7 @@ class SharedViewModel : ViewModel() {
     private val _games = MutableLiveData<Int>()
     private val _inGameScore = MutableLiveData<Int>()
     private val _theme = MutableLiveData<String>()
+    private val _text = MutableLiveData<String>()
 
     init {
         _wins.value = 0
@@ -18,9 +19,11 @@ class SharedViewModel : ViewModel() {
         _loses.value = 0
         _inGameScore.value = 0
         _theme.value = "#FFFFFF"
+        _text.value = "#000000"
     }
 
     val theme: LiveData<String> = _theme
+    val text: LiveData<String> = _text
     val inGameScore: LiveData<Int> = _inGameScore
     val wins: LiveData<Int> = _wins
     val loses: LiveData<Int> = _loses
@@ -37,6 +40,14 @@ class SharedViewModel : ViewModel() {
             1 -> _theme.value = "#57D3FF"
             2 -> _theme.value = "#FFFFAB"
             3 -> _theme.value = "#92D050"
+        }
+
+    }
+    fun setText(theme: Int) {
+        when (theme) {
+            0 -> _text.value = "#000000"
+            1 -> _text.value = "#7030A0"
+            2 -> _text.value = "#0900C4"
         }
 
     }

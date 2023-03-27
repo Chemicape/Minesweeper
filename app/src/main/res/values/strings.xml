@@ -8,20 +8,25 @@
     <string name="normal">Normal</string>
     <string name="hard">Hard</string>
     <string name="extreme">Extreme</string>
-    <string name="score">Score</string>
+    <string name="score">Score:</string>
     <string name="enteryourname">Enter your name...</string>
     <string name="white">White</string>
     <string name="lime">Lime</string>
     <string name="lightblue">Light Blue</string>
     <string name="lightyellow">Light Yellow</string>
     <string name="back">Back</string>
-    <string name="theme">Theme</string>
+    <string name="theme">Theme:</string>
     <string name="totalgames">Total games:</string>
     <string name="totalwins">Total wins:</string>
     <string name="totalloses">Total loses:</string>
     <string name="scorehistory">Score history:</string>
     <string name="win">win</string>
     <string name="lose">lose</string>
+    <string name="scoretheme">Score Text Color:</string>
+    <string name="black">Black</string>
+    <string name="purple">Purple</string>
+    <string name="deepblue">Deep Blue</string>
+    <string name="preview">This is a preview</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

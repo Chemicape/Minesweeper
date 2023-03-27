@@ -105,6 +105,9 @@ class StatisticsFragment : Fragment() {
                 3 -> difficulty = resources.getString(R.string.hard)
                 4 -> difficulty = resources.getString(R.string.extreme)
             }
+            viewModel.text.observe(viewLifecycleOwner){
+                wordTextView.setTextColor(parseColor(viewModel.text.value))
+            }
             if(score.win){
                 scores = 100*score.difficulty+(score.difficulty+5)*score.reveals
             }else{

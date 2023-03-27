@@ -2,6 +2,7 @@ package com.jzheng20.minesweeper
 
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.Color.parseColor
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -74,7 +75,6 @@ class ConfigurationFragment : Fragment() {
                 3 -> wordTextView.text = resources.getString(R.string.hard)
                 4 -> wordTextView.text = resources.getString(R.string.extreme)
             }
-
         }
     }
 

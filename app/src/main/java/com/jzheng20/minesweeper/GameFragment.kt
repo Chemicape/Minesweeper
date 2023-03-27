@@ -72,9 +72,9 @@ class GameFragment : Fragment() {
         board = MineSweeperModel(3*(difficulty+2))
 
         back.setOnClickListener {
-            score.text = "0"
             player =  playerName.text.toString()
             addUpScore(player,difficulty,revealed,win)
+            viewModel.setInGameScore(0)
             view.findNavController().navigate(R.id.action_gameFragment_to_welcomeFragment)
         }
         gridLayout = view.findViewById(R.id.gridLayout)

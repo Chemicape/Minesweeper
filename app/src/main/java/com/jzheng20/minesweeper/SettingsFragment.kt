@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.jzheng20.minesweeper.dataStorage.SharedViewModel
@@ -21,6 +22,8 @@ class SettingsFragment : Fragment() {
     }
     private lateinit var back:Button
     private lateinit var radioGroup: RadioGroup
+    private lateinit var radioGroup2: RadioGroup
+    private lateinit var previewTextView: TextView
     val viewModel : SharedViewModel by activityViewModels()
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -28,11 +31,16 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        previewTextView = view.findViewById(R.id.preview)
         viewModel.theme.observe(viewLifecycleOwner){
             view.setBackgroundColor(parseColor(viewModel.theme.value))
         }
+        viewModel.text.observe(viewLifecycleOwner){
+            previewTextView.setTextColor(parseColor(viewModel.text.value))
+        }
         view.setBackgroundColor(Color.parseColor(viewModel.theme.value))
         radioGroup = view.findViewById(R.id.radioGroup)
+        radioGroup2 = view.findViewById(R.id.radiogroup2)
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             // 执行相应的操作
             when (checkedId) {
@@ -47,6 +55,20 @@ class SettingsFragment : Fragment() {
                 }
                 R.id.lime -> {
                     viewModel.setTheme(3)
+                }
+            }
+        }
+        radioGroup2.setOnCheckedChangeListener { group, checkedId ->
+            // 执行相应的操作
+            when (checkedId) {
+                R.id.black -> {
+                    viewModel.setText(0)
+                }
+                R.id.purple -> {
+                    viewModel.setText(1)
+                }
+                R.id.deepblue -> {
+                    viewModel.setText(2)
                 }
             }
         }

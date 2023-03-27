@@ -9,18 +9,23 @@
     <string name="normal">普通</string>
     <string name="hard">困难</string>
     <string name="extreme">噩梦</string>
-    <string name="score">分数</string>
+    <string name="score">分数:</string>
     <string name="enteryourname">输入你的名字</string>
     <string name="white">白色</string>
     <string name="lime">淡青色</string>
     <string name="lightblue">淡蓝色</string>
     <string name="lightyellow">淡黄色</string>
     <string name="back">返回</string>
-    <string name="theme">主题</string>
+    <string name="theme">主题:</string>
     <string name="totalgames">总游戏数:</string>
     <string name="totalwins">胜局:</string>
     <string name="totalloses">败局:</string>
     <string name="scorehistory">分数历史:</string>
     <string name="win">胜</string>
     <string name="lose">败</string>
+    <string name="scoretheme">分数字体颜色:</string>
+    <string name="black">黑色</string>
+    <string name="purple">紫色</string>
+    <string name="deepblue">深蓝色</string>
+    <string name="preview">这是一个预览</string>
 </resources>
