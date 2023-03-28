@@ -40,7 +40,18 @@ class SettingsFragment : Fragment() {
         }
         view.setBackgroundColor(Color.parseColor(viewModel.theme.value))
         radioGroup = view.findViewById(R.id.radioGroup)
+        when(viewModel.theme.value){
+            "#FFFFFF" -> radioGroup.check(R.id.white)
+            "#57D3FF" -> radioGroup.check(R.id.lightblue)
+            "#FFFFAB" -> radioGroup.check(R.id.lightyellow)
+            "#92D050" -> radioGroup.check(R.id.lime)
+        }
         radioGroup2 = view.findViewById(R.id.radiogroup2)
+        when(viewModel.text.value){
+            "#000000" -> radioGroup2.check(R.id.black)
+            "#7030A0" -> radioGroup2.check(R.id.purple)
+            "#0900C4" -> radioGroup2.check(R.id.deepblue)
+        }
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             // 执行相应的操作
             when (checkedId) {
